@@ -1,0 +1,47 @@
+import vistrails.core.modules.module_registry
+from vistrails.core.modules.vistrails_module import Module, ModuleError
+
+###############################################################################
+# ${ModuleName}
+
+class ${ModuleName}(Module):
+    """${ModuleName} is a module that output to matlab function."""
+
+    def __init__(self):
+        Module.__init__(self)
+
+    def compute(self):
+        
+        ${GetInputData}
+
+        ####### start matlab platform
+        from win32com.client import Dispatch 
+        h = Dispatch("Matlab.application")
+        #######
+        
+        ####### input several variables in matlab
+        
+        ${MatExecInput}
+        
+        #######
+
+        ####### set result to store the result to "answer"
+        self.setResult("answer", h.execute("${ModuleName}(${AllVariable})"))
+        #########################################
+
+###############################################################################
+# the function initialize is called for each package, after all
+# packages have been loaded. It is used to register the module with
+# the VisTrails runtime.
+
+def initialize(*args, **keywords):
+
+    reg = vistrails.core.modules.module_registry.get_module_registry()
+
+    reg.add_module(${ModuleName})
+
+################################ add output port ##############################
+    ${OutputPort}
+                        
+################################ add input port ###############################
+    ${InputPort}

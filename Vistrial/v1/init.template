@@ -1,0 +1,80 @@
+import vistrails.core.modules.module_registry
+from vistrails.core.modules.vistrails_module import Module, ModuleError
+
+###############################################################################
+# ${ModuleName}
+
+class ${ModuleName}(Module):
+    """${ModuleName} is a module that read txt data files and output to matlab
+function."""
+
+    # This constructor is strictly unnecessary. However, some modules
+    # might want to initialize per-object data. When implementing your
+    # own constructor, remember that it must not take any extra
+    # parameters.
+    def __init__(self):
+        Module.__init__(self)
+
+    # This is the method you should implement in every module that
+    # will be executed directly. VisTrails does not use the return
+    # value of this method.
+    def compute(self):
+        # getInputFromPort is a method defined in Module that returns
+        # the value stored at an input port. If there's no value
+        # stored on the port, the method will return None.
+        c1 = "f="+self.getInputFromPort("command1")
+        c2 = "A="+self.getInputFromPort("command2")
+        c3 = "b="+self.getInputFromPort("command3")
+        c4 = "lb="+self.getInputFromPort("command4")
+        ################### Add parts ####################
+
+        ####### start matlab platform
+        from win32com.client import Dispatch 
+        h = Dispatch("Matlab.application")
+        #######
+        
+        ####### input several variables
+        h.execute(c1)
+        h.execute(c2)
+        h.execute(c3)
+        h.execute(c4)
+        #h.execute("f = [-5; -4; -6]")
+        #h.execute("A = [1 -1 1; 3 2 4; 3 2 0]")
+        #h.execute("b = [20; 42; 30]")
+        #h.execute("lb = zeros(3,1)")
+        #######
+
+        ####### set result to store the result to "answer"
+        self.setResult("answer", h.execute("linprog(f,A,b,[],[],lb)"))
+        #########################################
+
+###############################################################################
+# the function initialize is called for each package, after all
+# packages have been loaded. It is used to register the module with
+# the VisTrails runtime.
+
+def initialize(*args, **keywords):
+
+    # We'll first create a local alias for the module_registry so that
+    # we can refer to it in a shorter way.
+    reg = vistrails.core.modules.module_registry.get_module_registry()
+
+    # VisTrails cannot currently automatically detect your derived
+    # classes, and the ports that they support as input and
+    # output. Because of this, you as a module developer need to let
+    # VisTrails know that you created a new module. This is done by calling
+    # function addModule:
+    reg.add_module(${ModuleName})
+
+################################ add output port, output string
+    reg.add_output_port(${ModuleName}, "answer",
+                        (vistrails.core.modules.basic_modules.String, 'the result'))
+################################ add input port, input string as matlab command
+    reg.add_input_port(${ModuleName}, "command1",
+                        (vistrails.core.modules.basic_modules.String, 'f ='))
+    reg.add_input_port(${ModuleName}, "command2",
+                        (vistrails.core.modules.basic_modules.String, 'A ='))
+    reg.add_input_port(${ModuleName}, "command3",
+                        (vistrails.core.modules.basic_modules.String, 'b ='))
+    reg.add_input_port(${ModuleName}, "command4",
+                        (vistrails.core.modules.basic_modules.String, 'lb ='))
