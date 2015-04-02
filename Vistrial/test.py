@@ -28,8 +28,7 @@ def main():
     # InputPort
     in_port = ''
     for i in range(in_port_num):
-        in_port += '''reg.add_input_port(%s, "%s",
-                        (vistrails.core.modules.basic_modules.String, '%s ='))
+        in_port += '''reg.add_input_port(%s, "%s", (basic.String, '%s ='))
     ''' %(module_name,name[i],name[i])
 
     # GetInputData
@@ -48,8 +47,7 @@ def main():
 ################## out port number and string ########################
 
     # OutputPort
-    out_port_1 = '''reg.add_output_port(%s, "answer",
-                        (vistrails.core.modules.basic_modules.String, 'the result'))
+    out_port_1 = '''reg.add_output_port(%s, "answer", (basic.String, 'the result'))
     ''' %module_name
                    
     out_port = out_port_1 * 1 # out_port_num
@@ -65,8 +63,7 @@ def main():
    
 ################### data converter #####################################
 
-    data_convert_port = '''reg.add_input_port(%s, "output data type",
-                       (vistrails.core.modules.basic_modules.String, 'output data type'),
+    data_convert_port = '''reg.add_input_port(%s, "output data type", (basic.String, 'output data type'),
                        entry_types=['enum'], values=["['string', 'int', 'float', 'bool', 'char', 'matrix']"])
         ''' %(module_name)
    
