@@ -41,7 +41,7 @@ class ${ModuleName}(Module):
 def initialize(*args, **keywords):
 
     reg = vistrails.core.modules.module_registry.get_module_registry()
-
+    basic = vistrails.core.modules.basic_module
     reg.add_module(${ModuleName})
 
 ################################ add output port ##############################
