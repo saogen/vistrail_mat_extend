@@ -4,8 +4,6 @@
 import os
 from string import Template
 
-
-
 def main():
     
     module_name = raw_input("module name:")

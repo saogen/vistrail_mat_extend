@@ -26,7 +26,7 @@ class ${ModuleName}(Module):
         #######
         
         m.run("ret = ${ModuleName}(${AllVariable})")
-        result = m.getvalue('ret')
+        result = m.getvalue("ret")
         
         
         ####### set result to store the result to "answer"
