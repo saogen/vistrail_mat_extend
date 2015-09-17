@@ -1,0 +1,39 @@
+
+import vistrails.core.modules.module_registry
+from vistrails.core.modules.vistrails_module import Module, ModuleError
+from vistrails.core.modules.module_registry import get_module_registry
+import pymatlab as py
+
+################################################################################
+
+# ${ModuleName}
+
+class ${ModuleName}(Module):
+    def __init__(self):
+        self.eng=py.session_factory()
+        Module.__init__(self)
+
+    def compute(self):
+        ${GetInputData}
+          
+        ${PutValue}
+        
+        ${RunEval}
+        
+        ${Run}
+        
+        ${GetValue}
+        
+        ${SetOutputData}
+
+       
+################################################################################
+def initialize(*args, **keywords):
+    reg = get_module_registry()
+
+    reg.add_module(${ModuleName})
+
+    ${RegInputPort}
+
+    ${RegOutputPort}
+

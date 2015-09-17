@@ -1,0 +1,11 @@
+change file:
+
+1.
+init.template
+move "eng=py.session_factory()"
+to function def __init__(self):
+                self.eng=py.session_factory()
+                
+2.
+generator.py
+all "eng" change to "self.eng"
